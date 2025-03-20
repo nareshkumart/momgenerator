@@ -22,11 +22,15 @@ st.title("MOM Generator")
 
 email_id = st.text_input("Enter your email:")
 
-st.write("You can upload a **Teams meeting transcription** for best results. If unavailable, you may upload rough meeting notes with client name, all tasks discussed, including owners and dates (no specific format required).")
+if email_id and not email_id.endswith("@ganitinc.com"):
+    st.error("Only emails from ganitinc.com domain are allowed.")
+    st.stop()
+
+st.write("You can upload a **Teams meeting transcription** for best results. If unavailable, you may upload rough meeting notes with all tasks discussed, including owners and dates (no specific format required).")
 
 uploaded_file = st.file_uploader("Upload MOM Document", type=["docx"])
 
-if uploaded_file and st.button("Upload & Send MOM",  use_container_width=True):
-    with st.spinner("Generating your Minutes of Meeting..."):
+if uploaded_file and st.button("Upload & Send MOM", use_container_width=True):
+    with st.spinner("Uploading..."):
         response = send_mom(uploaded_file, email_id)
-    st.success(f"MOM draft has been sent to {email_id}")
+    st.success(f"MOM has been sent to {email_id}")
