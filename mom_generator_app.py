@@ -31,6 +31,6 @@ st.write("You can upload a **Teams meeting transcription** for best results. If 
 uploaded_file = st.file_uploader("Upload MOM Document", type=["docx"])
 
 if uploaded_file and st.button("Upload & Send MOM", use_container_width=True):
-    with st.spinner("Uploading..."):
+    with st.spinner("Generating your MOM..."):
         response = send_mom(uploaded_file, email_id)
     st.success(f"MOM has been sent to {email_id}")
